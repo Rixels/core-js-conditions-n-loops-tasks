@@ -204,7 +204,7 @@ function convertNumberToString(numberStr) {
         sum += 'point ';
         break;
       default:
-        console.log('default');
+        break;
     }
   }
   let trim = '';
