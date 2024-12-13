@@ -456,23 +456,24 @@ function sortByAsc(arr) {
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
 function shuffleChar(str, iterations) {
-  function shuffle(inputStr) {
+  let strDouble = str;
+  for (let x = 0; x < iterations; x += 1) {
     let leftPart = '';
     let rightPart = '';
-    for (let i = 0; i < inputStr.length; i += 1) {
-      if (i % 2 === 0) {
-        leftPart += inputStr[i];
+    for (let y = 0; y < str.length; y += 1) {
+      if (y % 2 === 0) {
+        leftPart += strDouble[y];
       } else {
-        rightPart += inputStr[i];
+        rightPart += strDouble[y];
       }
     }
-    return leftPart + rightPart;
+    const powerInd = x + 1;
+    strDouble = leftPart + rightPart;
+    if (strDouble === str) {
+      return shuffleChar(str, iterations % powerInd);
+    }
   }
-  let result = str;
-  for (let i = 0; i < iterations; i += 1) {
-    result = shuffle(result);
-  }
-  return result;
+  return strDouble;
 }
 
 /**
