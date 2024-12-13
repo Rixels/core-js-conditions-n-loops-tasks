@@ -418,8 +418,24 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+
+function sortByAsc(arr) {
+  const arrDbl = arr;
+  const leng = arrDbl.length;
+  const indexLength = leng - 1;
+  for (let k = 0; k < leng; k += 1) {
+    let value = indexLength - k;
+    for (let e = 0; e < leng - k; e += 1) {
+      if (arrDbl[e] > arrDbl[value]) {
+        value = e;
+      }
+    }
+    [arrDbl[indexLength - k], arrDbl[value]] = [
+      arrDbl[value],
+      arrDbl[indexLength - k],
+    ];
+  }
+  return arrDbl;
 }
 
 /**
@@ -439,8 +455,24 @@ function sortByAsc(/* arr */) {
  *  '012345', 3 => '024135' => '043215' => '031425'
  *  'qwerty', 3 => 'qetwry' => 'qtrewy' => 'qrwtey'
  */
-function shuffleChar(/* str, iterations */) {
-  throw new Error('Not implemented');
+function shuffleChar(str, iterations) {
+  function shuffle(inputStr) {
+    let leftPart = '';
+    let rightPart = '';
+    for (let i = 0; i < inputStr.length; i += 1) {
+      if (i % 2 === 0) {
+        leftPart += inputStr[i];
+      } else {
+        rightPart += inputStr[i];
+      }
+    }
+    return leftPart + rightPart;
+  }
+  let result = str;
+  for (let i = 0; i < iterations; i += 1) {
+    result = shuffle(result);
+  }
+  return result;
 }
 
 /**
@@ -460,8 +492,44 @@ function shuffleChar(/* str, iterations */) {
  * @param {number} number The source number
  * @returns {number} The nearest larger number, or original number if none exists.
  */
-function getNearestBigger(/* number */) {
-  throw new Error('Not implemented');
+function getNearestBigger(number) {
+  const arr = [];
+  let tempNumb = number;
+  while (tempNumb > 0) {
+    arr.unshift(tempNumb % 10);
+    tempNumb = Math.floor(tempNumb / 10);
+  }
+  const indexLen = arr.length - 1;
+  let result = 0;
+  const acc = [];
+  let indexResult = 0;
+  for (let i = 0; i < indexLen; i += 1) {
+    acc.push(arr[indexLen - i]);
+    if (arr[indexLen - 1 - i] < arr[indexLen - i]) {
+      result = arr[indexLen - 1 - i];
+      indexResult = indexLen - 1 - i;
+      break;
+    }
+  }
+  acc.sort((a, b) => a - b);
+  const value = acc.find((item) => item > result);
+  const valueIndex = arr.findLastIndex((item) => item === value);
+  [arr[indexResult], arr[valueIndex]] = [arr[valueIndex], arr[indexResult]];
+  const endArr = [];
+  for (let s = indexResult + 1; s < arr.length; s += 1) {
+    endArr.push(arr[s]);
+  }
+  endArr.sort((a, b) => a - b);
+  arr.length = indexResult + 1;
+  const starArr = [...arr];
+  for (let i = 0; i < endArr.length; i += 1) {
+    starArr.push(endArr[i]);
+  }
+  let res = 0;
+  for (let i = 0; i < starArr.length; i += 1) {
+    res = res * 10 + starArr[i];
+  }
+  return Number(res);
 }
 
 module.exports = {
