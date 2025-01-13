@@ -546,7 +546,6 @@ function getNearestBigger(number) {
   }
   return Number(res);
 }
-
 module.exports = {
   isPositive,
   getMaxNumber,
