@@ -423,17 +423,21 @@ function sortByAsc(arr) {
   const arrDbl = arr;
   const leng = arrDbl.length;
   const indexLength = leng - 1;
-  for (let k = 0; k < leng; k += 1) {
+  let k = 0;
+  while (k < leng) {
     let value = indexLength - k;
-    for (let e = 0; e < leng - k; e += 1) {
+    let e = 0;
+    while (e < leng - k) {
       if (arrDbl[e] > arrDbl[value]) {
         value = e;
       }
+      e += 1;
     }
     [arrDbl[indexLength - k], arrDbl[value]] = [
       arrDbl[value],
       arrDbl[indexLength - k],
     ];
+    k += 1;
   }
   return arrDbl;
 }
@@ -457,21 +461,25 @@ function sortByAsc(arr) {
  */
 function shuffleChar(str, iterations) {
   let strDouble = str;
-  for (let x = 0; x < iterations; x += 1) {
+  let x = 0;
+  while (x < iterations) {
     let leftPart = '';
     let rightPart = '';
-    for (let y = 0; y < str.length; y += 1) {
+    let y = 0;
+    while (y < str.length) {
       if (y % 2 === 0) {
         leftPart += strDouble[y];
       } else {
         rightPart += strDouble[y];
       }
+      y += 1;
     }
     const powerInd = x + 1;
     strDouble = leftPart + rightPart;
     if (strDouble === str) {
       return shuffleChar(str, iterations % powerInd);
     }
+    x += 1;
   }
   return strDouble;
 }
