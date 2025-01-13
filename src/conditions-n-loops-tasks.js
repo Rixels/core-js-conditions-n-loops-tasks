@@ -522,7 +522,13 @@ function getNearestBigger(number) {
   }
   acc.sort((a, b) => a - b);
   const value = acc.find((item) => item > result);
-  const valueIndex = arr.findLastIndex((item) => item === value);
+  let valueIndex = -1;
+  for (let i = arr.length - 1; i >= 0; i -= 1) {
+    if (arr[i] === value) {
+      valueIndex = i;
+      break;
+    }
+  }
   [arr[indexResult], arr[valueIndex]] = [arr[valueIndex], arr[indexResult]];
   const endArr = [];
   for (let s = indexResult + 1; s < arr.length; s += 1) {
